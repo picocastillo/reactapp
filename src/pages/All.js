@@ -20,7 +20,6 @@ class All extends React.Component {
   render(){
     return(
       <div>
-        <Header/>
         <p>WE ARE ALL
         </p>
       </div>

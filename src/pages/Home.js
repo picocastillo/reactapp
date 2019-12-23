@@ -21,7 +21,6 @@ class Home extends React.Component {
   render(){
     return(
       <div>
-        <Header/>
         <Contact onChange={this.handleChange}/>
       </div>
     )
