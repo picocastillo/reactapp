@@ -5,7 +5,9 @@ function Layout(props) {
   return(
     <React.Fragment>
       <Header/>
-      {props.children}
+      <div className="margen">
+        {props.children}
+      </div>
     </React.Fragment>
   )
 }

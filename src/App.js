@@ -3,15 +3,17 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  // Link
 } from 'react-router-dom';
 
 
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 import Home from './pages/Home';
 import All from './pages/All';
+import User from './pages/User';
+import Task from './pages/Task';
 import Layout from './Layout';
 const NotFound = () =>{
   return (
@@ -21,21 +23,27 @@ const NotFound = () =>{
 
 function App() {
   return (
-    <Layout>
       <Router>
-        <Switch>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/all">
-            <All/>
-          </Route>
-          <Route >
-            <NotFound/>
-          </Route>
-        </Switch>
+        <Layout>
+          <Switch>
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/all">
+              <All/>
+            </Route>
+            <Route exact path="/users">
+              <User/>
+            </Route>
+            <Route exact path="/tasks">
+              <Task/>
+            </Route>
+            <Route >
+              <NotFound/>
+            </Route>
+          </Switch>
+        </Layout>
       </Router>
-    </Layout>
 
   );
 }
