@@ -7,7 +7,7 @@ export const getAll = () => async (dispatch) => {
     type: LOADING
   })
   try {
-    const res = await axios.get('https://jsonplaceholder.typicode.com/users');
+    const res = await axios.get('https://jsonplaceholder.typicode.com/userss');
     dispatch({
       type: GET_ALL,
       payload: res.data
