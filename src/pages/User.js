@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import * as userActions from '../reducers/userActions';
 import Spinner from '../components/Spinner'
 import Fatal from '../components/Fatal'
+import Table from '../components/Table'
 
 class User extends React.Component {
 
@@ -19,25 +20,11 @@ class User extends React.Component {
     if (this.props.error) {
       return <Fatal message = {this.props.error} />
     }
+    if (!this.props.users){
+      return <p> No hay Usuarios</p>
+    }
     return (
-      <table className="table">
-        <thead>
-          <tr>
-            <th>
-              Nombre
-            </th>
-            <th>
-              Correo
-            </th>
-            <th>
-              Enlase
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.putRows()}
-        </tbody>
-      </table>
+      <Table users = {this.props.users} />
     )
   }
   putRows = () => (
@@ -54,12 +41,12 @@ class User extends React.Component {
         </td>
       </tr>
 
-    )
-    )
-)
+    ))
+  )
   render(){
     return(
       <div >
+        <h2> Usuarios</h2> <br></br>
         {this.putContent()}
       </div>
     )
