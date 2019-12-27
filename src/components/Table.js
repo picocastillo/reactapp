@@ -1,9 +1,9 @@
 import React from 'react';
-
+import {Link} from 'react-router-dom';
 
 function Table(props) {
   const putRows = () => (
-    props.users.map((user)=>(
+    props.users.map((user,key)=>(
       <tr key={user.id}>
         <td>
         {user.name}
@@ -13,6 +13,11 @@ function Table(props) {
         </td>
         <td>
         {user.website}
+        </td>
+        <td>
+        <Link to={`/publications/${key}`} >
+          <div className="eye-solid icon"></div>
+        </Link>
         </td>
       </tr>
 

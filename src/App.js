@@ -15,6 +15,7 @@ import All from './pages/All';
 import User from './pages/User';
 import Task from './pages/Task';
 import Layout from './Layout';
+import Publications from './pages/Post';
 const NotFound = () =>{
   return (
     <p>Pagina no encontrada..</p>
@@ -26,21 +27,12 @@ function App() {
       <Router>
         <Layout>
           <Switch>
-            <Route exact path="/home">
-              <Home />
-            </Route>
-            <Route exact path="/all">
-              <All/>
-            </Route>
-            <Route exact path="/users">
-              <User/>
-            </Route>
-            <Route exact path="/tasks">
-              <Task/>
-            </Route>
-            <Route >
-              <NotFound/>
-            </Route>
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/all" component={All}/>
+            <Route exact path="/users" component={User}/>
+            <Route exact path="/tasks" component={Task}/>
+            <Route exact path="/publications/:key" component={Publications} />
+            <Route  component={NotFound} />
           </Switch>
         </Layout>
       </Router>

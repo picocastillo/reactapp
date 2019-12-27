@@ -10,7 +10,9 @@ class User extends React.Component {
 
 
   componentDidMount(){
-    this.props.getAll();
+    if (!this.props.users.length){
+      this.props.getAll();
+    }
   }
   putContent = () => {
     if (this.props.loading){
@@ -27,22 +29,7 @@ class User extends React.Component {
       <Table users = {this.props.users} />
     )
   }
-  putRows = () => (
-    this.props.users.map((user)=>(
-      <tr key={user.id}>
-        <td>
-        {user.name}
-        </td>
-        <td>
-        {user.email}
-        </td>
-        <td>
-        {user.website}
-        </td>
-      </tr>
 
-    ))
-  )
   render(){
     return(
       <div >
@@ -53,6 +40,6 @@ class User extends React.Component {
   }
 }
 const mapToProps = (reducer) => {
-  return reducer.userReducers;
+  return reducer.userReducer;
 }
 export default connect(mapToProps, userActions)(User);
