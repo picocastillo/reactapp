@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {LOADING, ERROR,GET_BY_USER} from '../types/postTypes';
+import * as userTypes from '../types/userTypes';
 
-
+const {GET_ALL: USER_GET_ALL} = userTypes;
 
 
 export const getByUser = (key) => async(dispatch,getState) => {
@@ -20,6 +21,17 @@ export const getByUser = (key) => async(dispatch,getState) => {
       ...posts,
       res.data
     ]
+    const post_key = current_post.length -1 ;
+    let current_users = [...users];
+    current_users[key] = {
+      ...users[key],
+      post_key
+    }
+    dispatch({
+      type: USER_GET_ALL,
+      payload: current_users
+    });
+
     dispatch({
       type: GET_BY_USER,
       payload: current_post
