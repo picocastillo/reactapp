@@ -24,13 +24,13 @@ class Post extends React.Component {
     }  = this.props
     // this.props.getByUser(this.props.match.params.key)
     if (!this.props.userReducer.users.length){
-      await this.props.userGetAll();
+      await userGetAll();
     }
     if (this.props.userReducer.error){
       return
     }
     if (!('post_key' in this.props.userReducer.users[key])){
-      this.props.postGetByUser(this.props.match.params.key);
+      postGetByUser(this.props.match.params.key);
     }
   }
   putUser(){
@@ -56,7 +56,10 @@ class Post extends React.Component {
 
 
   }
-
+  clickCard(event){
+    const id = event.target.dataset.id;
+    
+  }
   putPosts(){
     const {
       userReducer,
@@ -89,11 +92,9 @@ class Post extends React.Component {
 
     return postReducer.posts[post_key].map( (post) => {
       return (
-        <Card id={post.id} title={post.title} body={post.body} name={name} />
+        <Card key={post.id} id={post.id} click={this.clickCard}title={post.title} body={post.body} name={name} />
       )
     })
-
-    return
   }
   render(){
     console.log(this.props)
