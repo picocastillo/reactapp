@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Spinner from '../components/Spinner'
 import Fatal from '../components/Fatal'
-import Table from '../components/Table'
+import Card from '../components/Card'
 
 import * as postActions from '../reducers/postActions';
 import * as userActions from '../reducers/userActions';
@@ -29,7 +29,7 @@ class Post extends React.Component {
     if (this.props.userReducer.error){
       return
     }
-    if (!('post_key' in this.props.userReducer.users[this.props.match.params.key])){
+    if (!('post_key' in this.props.userReducer.users[key])){
       this.props.postGetByUser(this.props.match.params.key);
     }
   }
@@ -51,19 +51,62 @@ class Post extends React.Component {
     }
 
     return (
-      <h2> Publicaciones de {userReducer.users[key].name}</h2>
+      <h2> Publicaciones de { userReducer.users[key].name}</h2>
     )
 
 
   }
 
+  putPosts(){
+    const {
+      userReducer,
+      userReducer: { users},
+      postReducer,
+      postReducer: {posts},
+      match: {
+        params: {
+          key
+        }
+      }
+    } = this.props;
+    if (!users.length) return;
+    if (userReducer.error) return;
+
+    if (postReducer.loading){
+      return <Spinner />
+    }
+
+    if (postReducer.error){
+      return <Fatal message={postReducer.error} />
+    }
+
+    if (!posts.length) return
+    if (! ('post_key' in users[key])) return
+
+    const {post_key} = users[key];
+
+    const name = userReducer.users[key].name
+
+    return postReducer.posts[post_key].map( (post) => {
+      return (
+        <Card id={post.id} title={post.title} body={post.body} name={name} />
+      )
+    })
+
+    return
+  }
   render(){
     console.log(this.props)
 
     return(
       <div >
          {this.putUser()}
-
+         <div className="container">
+           <br></br>
+           <div className="row">
+             {this.putPosts()}
+           </div>
+         </div>
       </div>
     )
   }
