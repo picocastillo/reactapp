@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Spinner from '../components/Spinner'
 import Fatal from '../components/Fatal'
 import Card from '../components/Card'
+import Comments from '../containers/Comments'
 
 import * as postActions from '../reducers/postActions';
 import * as userActions from '../reducers/userActions';
@@ -58,7 +59,9 @@ class Post extends React.Component {
   }
   clickCard(event){
     const id = event.target.dataset.id;
-    
+    const idx = event.target.dataset.idx;
+    console.log(id,idx)
+
   }
   putPosts(){
     const {
@@ -90,9 +93,9 @@ class Post extends React.Component {
 
     const name = userReducer.users[key].name
 
-    return postReducer.posts[post_key].map( (post) => {
+    return postReducer.posts[post_key].map( (post,idx) => {
       return (
-        <Card key={post.id} id={post.id} click={this.clickCard}title={post.title} body={post.body} name={name} />
+        <Card key={post.id} id={post.id} idx={idx} click={this.clickCard}title={post.title} body={post.body} name={name} />
       )
     })
   }
@@ -106,6 +109,7 @@ class Post extends React.Component {
            <br></br>
            <div className="row">
              {this.putPosts()}
+             <Comments />
            </div>
          </div>
       </div>

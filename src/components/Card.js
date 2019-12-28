@@ -14,7 +14,7 @@ function Card(props) {
             <footer className="blockquote-footer">Escrito por<cite title="Source Title">{props.name}</cite></footer>
           </blockquote>
         </div>
-        <button onClick={props.click} data-id={props.id} className="btn btn-primary botton">Ver comentarios</button>
+        <button onClick={props.click} data-id={props.id} data-idx={props.idx} data-toggle="modal" data-target="#exampleModal" className="btn btn-primary botton">Ver comentarios</button>
       </div>
     </div>
   )
