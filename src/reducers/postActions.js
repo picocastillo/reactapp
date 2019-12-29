@@ -8,19 +8,21 @@ const {GET_ALL: USER_GET_ALL} = userTypes;
 export const getByUser = (key) => async(dispatch,getState) => {
   const {users} = getState().userReducer;
   const {posts} = getState().postReducer;
-
-
-  // console.log("kk")
-  // console.log(user_id)
   dispatch({
     type: LOADING
   })
   try {
     const res = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${users[key].id}`);
+      const news = res.data.map((posts) => ({
+        ...posts,
+        comments: [],
+        open: false
+      }))
     const current_post = [
       ...posts,
-      res.data
+      news
     ]
+
     const post_key = current_post.length -1 ;
     let current_users = [...users];
     current_users[key] = {
@@ -42,4 +44,69 @@ export const getByUser = (key) => async(dispatch,getState) => {
       payload: e.message
     })
   }
+}
+
+export const getComments = (id_post,idx,post_key) => async(dispatch,getState) => {
+  dispatch({
+    type: LOADING
+  })
+  try {
+    const res = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${id_post}`);
+
+      const {posts} = getState().postReducer;
+      const {users} = getState().userReducer;
+      const key_post = users[post_key].post_key
+      const selected = posts[key_post][idx];
+
+    // const updataed_post = [...posts]
+    // updataed_post[0][idx] = {
+    //   ...posts[0][idx],
+    //   comments: res.data
+    // }
+    const updated = {
+      ...selected,
+      comments: res.data
+    }
+    const post_updated = [...posts]
+    post_updated[post_key] = {
+      ...posts[post_key]
+    }
+
+    post_updated[key_post][idx] = updated
+    // console.log(updated);
+    dispatch({
+          type: GET_BY_USER,
+          payload: post_updated
+        })
+  } catch (e) {
+    dispatch({
+      type: ERROR,
+      payload: e.message
+    })
+  }
+}
+
+export const toOpen = (id,idx,post_key) => (dispatch,getState) => {
+  const {posts} = getState().postReducer;
+  const {users} = getState().userReducer;
+  const key_post = users[post_key].post_key
+  const selected = posts[key_post][idx];
+
+  const updated = {
+    ...selected,
+    open: !selected.open
+  }
+  const post_updated = [...posts]
+  post_updated[post_key] = {
+    ...posts[post_key]
+  }
+
+  post_updated[key_post][idx] = updated
+  dispatch({
+        type: GET_BY_USER,
+        payload: post_updated
+      })
+
+
+
 }

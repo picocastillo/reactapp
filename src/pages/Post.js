@@ -3,16 +3,18 @@ import {connect} from 'react-redux';
 import Spinner from '../components/Spinner'
 import Fatal from '../components/Fatal'
 import Card from '../components/Card'
-import Comments from '../containers/Comments'
+import Comments from '../components/Modal'
 
 import * as postActions from '../reducers/postActions';
 import * as userActions from '../reducers/userActions';
 
 const {getAll: userGetAll } = userActions;
-const {getByUser: postGetByUser } = postActions;
+const {getByUser: postGetByUser, toOpen, getComments  } = postActions;
 
 class Post extends React.Component {
-
+  state = {
+    comments: []
+  }
   async componentDidMount(){
     const {
       userGetAll,
@@ -57,11 +59,29 @@ class Post extends React.Component {
 
 
   }
-  clickCard(event){
-    const id = event.target.dataset.id;
-    const idx = event.target.dataset.idx;
-    console.log(id,idx)
 
+   click = async (e) => {
+    const id = e.target.dataset.id;
+    const idx = e.target.dataset.idx;
+    // console.log(this.props)
+    const post_key = this.props.match.params.key;
+    this.props.toOpen(id,idx,post_key)
+    await this.props.getComments(id,idx,post_key)
+    console.log(id,idx)
+    const pkey = this.props.userReducer.users[post_key].post_key
+    console.log(this.props.postReducer.posts[pkey][idx].comments)
+    console.log(this.props.postReducer.posts[pkey][idx])
+    this.setState({
+      comments: this.props.postReducer.posts[pkey][idx].comments
+    });
+    // const pp = await this.props.postReducer.posts[0];
+    // console.log(pp)
+    // const asd = pp[idx]
+    // console.log(asd)
+    // // this.setState({
+    //   comments: [this.props.]
+    // });
+    // this.getComments()
   }
   putPosts(){
     const {
@@ -95,21 +115,19 @@ class Post extends React.Component {
 
     return postReducer.posts[post_key].map( (post,idx) => {
       return (
-        <Card key={post.id} id={post.id} idx={idx} click={this.clickCard}title={post.title} body={post.body} name={name} />
+        <Card key={post.id} id={post.id} open={post.open} idx={idx} click={this.click}title={post.title} body={post.body} name={name} />
       )
     })
   }
   render(){
-    console.log(this.props)
-
     return(
       <div >
+        <Comments comments={this.state.comments}/>
          {this.putUser()}
          <div className="container">
            <br></br>
            <div className="row">
              {this.putPosts()}
-             <Comments />
            </div>
          </div>
       </div>
@@ -117,8 +135,6 @@ class Post extends React.Component {
   }
 }
 const mapToProps = ({postReducer, userReducer}) => {
-  // console.log(reducer)
-
   return {
     userReducer,
     postReducer
@@ -126,6 +142,8 @@ const mapToProps = ({postReducer, userReducer}) => {
 }
 const mapDispatchToProps = {
   userGetAll,
-  postGetByUser
+  postGetByUser,
+  toOpen,
+  getComments
 }
 export default connect(mapToProps,mapDispatchToProps)(Post);
