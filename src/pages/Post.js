@@ -74,14 +74,7 @@ class Post extends React.Component {
     this.setState({
       comments: this.props.postReducer.posts[pkey][idx].comments
     });
-    // const pp = await this.props.postReducer.posts[0];
-    // console.log(pp)
-    // const asd = pp[idx]
-    // console.log(asd)
-    // // this.setState({
-    //   comments: [this.props.]
-    // });
-    // this.getComments()
+
   }
   putPosts(){
     const {
@@ -120,9 +113,10 @@ class Post extends React.Component {
     })
   }
   render(){
+
     return(
       <div >
-        <Comments comments={this.state.comments}/>
+        <Comments comments={this.state.comments} error={this.props.postReducer.error_comments} loading = {this.props.postReducer.loading_comments}/>
          {this.putUser()}
          <div className="container">
            <br></br>

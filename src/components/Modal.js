@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Fatal from './Fatal';
+import Spinner from './Spinner';
+
 const comment = (email,name,body,idx) => {
   return (
     <div key={idx}>
@@ -25,6 +28,8 @@ function Modal(props){
             </button>
           </div>
           <div className="modal-body">
+            {props.loading && <Spinner />}
+            {props.error && <Fatal message={props.error} />}
             {props.comments.map((item,idx) => {
             return  comment(item.email,item.name,item.body,idx)
             })}
