@@ -12,7 +12,16 @@ class NewTask extends React.Component {
     userId: '',
     title: ''
   }
+  componentDidMount(){
+    const  {title,userId} = this.props.match.params
+    if (title && userId){
+      this.setState({
+        userId,
+        title
+      })
+    }
 
+  }
   change = (e) => {
     this.setState({
       [e.target.name]: e.target.value

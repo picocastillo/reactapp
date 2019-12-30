@@ -44,7 +44,9 @@ class Task extends React.Component {
           {(by_user[task_id].completed) ? <s>{by_user[task_id].title}</s> : by_user[task_id].title }
         </li>
         &nbsp;
-        <button className="btn btn-secondary btn-medium">Editar</button>
+        <Link to={`/tasks/new/${by_user[task_id].title}/${by_user[task_id].userId }`}>
+          <button className="btn btn-secondary btn-medium">Editar</button>
+        </Link>
         &nbsp;
         <button className="btn btn-danger btn-medium">Eliminar</button>
         <br />

@@ -33,6 +33,7 @@ function App() {
             <Route exact path="/users" component={User}/>
             <Route exact path="/tasks" component={Task}/>
             <Route exact path="/tasks/new" component={NewTask}/>
+            <Route exact path="/tasks/new/:title/:userId" component={NewTask}/>
             <Route exact path="/publications/:key" component={Publications} />
             <Route  component={NotFound} />
           </Switch>
