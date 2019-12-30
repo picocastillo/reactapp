@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import * as sessionActions from '../reducers/sessionActions';
 
 import SignIn from '../components/SignIn';
 
@@ -19,7 +21,8 @@ class Login extends React.Component {
   }
   submit = (e) => {
     e.preventDefault()
-    console.log(this.state)
+    this.props.login(this.state.email,this.state.password);
+
   }
   render(){
     return(
@@ -31,5 +34,6 @@ class Login extends React.Component {
     )
   }
 }
+const mapToProps = ({sessionReducer}) => {return sessionReducer}
 
-export default Login;
+export default connect(mapToProps,sessionActions)(Login);

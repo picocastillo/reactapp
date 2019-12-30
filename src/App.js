@@ -5,6 +5,8 @@ import {
   Route,
   // Link
 } from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as sessionActions from './reducers/sessionActions';
 
 
 // import logo from './logo.svg';
@@ -27,16 +29,19 @@ const NotFound = () =>{
   )
 }
 
-function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/Register" component={Register} />
-      </Switch>
-    </Router>
-  )
-  return (
+function App(props) {
+  if (!props.logged){
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/Register" component={Register} />
+          <Route component={Login} />
+        </Switch>
+      </Router>
+    )
+  }else {
+    return (
       <Router>
         <Layout>
           <Switch>
@@ -51,8 +56,8 @@ function App() {
           </Switch>
         </Layout>
       </Router>
-
-  );
+    );
+  }
 }
-
-export default App;
+const mapToProps = ({sessionReducer}) => {return sessionReducer}
+export default connect(mapToProps,sessionActions)(App);
