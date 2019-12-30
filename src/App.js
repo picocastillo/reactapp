@@ -15,9 +15,12 @@ import All from './pages/All';
 import User from './pages/User';
 import Task from './pages/Task';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Layout from './Layout';
 import Publications from './pages/Post';
 import NewTask from './containers/NewTask';
+
+
 const NotFound = () =>{
   return (
     <p>Pagina no encontrada..</p>
@@ -29,6 +32,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/login" component={Login} />
+        <Route exact path="/Register" component={Register} />
       </Switch>
     </Router>
   )

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SignIn from '../components/SignIn';
+import SignUp from '../components/SignUp';
 
-class Login extends React.Component {
+class Register extends React.Component {
   state = {
     email: '',
     password: ''
@@ -26,10 +26,10 @@ class Login extends React.Component {
       <div className="container">
         <br />
         <br />
-        <SignIn email={this.changeEmail} header="Ingresar" password={this.changePassword} click={this.submit}/>
+        <SignUp email={this.changeEmail} header="Registrarse" password={this.changePassword} click={this.submit}/>
       </div>
     )
   }
 }
 
-export default Login;
+export default Register;

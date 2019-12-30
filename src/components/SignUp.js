@@ -1,10 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 
 
 
-
-function Signin(props) {
+function SignUp(props) {
   return(
     <div className="card">
       <div className="card card-header text-center">
@@ -20,12 +18,15 @@ function Signin(props) {
             <label >Contraseña</label>
             <input type="password" onChange={props.password} className="form-control"  placeholder="Ingrese Contraseña" />
           </div>
-          <Link to="/register">Deseo Registrarme </Link> <br/> <br/> <br/>
-          <button type="submit" onClick={props.click} className="btn btn-primary">Ingresar</button>
+          <div className="form-group">
+            <label >Repita Contraseña</label>
+            <input type="password" onChange={props.password} className="form-control"  placeholder="Repita Contraseña" />
+          </div>
+          <button type="submit" onClick={props.click} className="btn btn-primary">Registrarme</button>
         </form>
       </div>
     </div>
   )
 }
 
-export default Signin;
+export default SignUp;
