@@ -2,8 +2,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import $ from 'jquery';
 // import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import Firebase, { FirebaseContext } from './firebase/firebaseApp';
 
+
+import { ReactReduxFirebaseProvider, firebaseReducer } from 'react-redux-firebase'
+import firebase from 'firebase/app'
+import {config} from './firebase/config';
 
 
 import React from 'react';
@@ -22,11 +25,24 @@ const store = createStore(
   applyMiddleware(reduxThunk)
 )
 
+const rrfConfig = {
+  userProfile: 'users',
+  // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+  // enableClaims: true // Get custom claims along with the profile
+}
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  // createFirestoreInstance // <- needed if using firestore
+}
+firebase.initializeApp(config)
+
 ReactDOM.render(
-  <FirebaseContext.Provider value={new Firebase()}>
     <Provider store={store}>
-      <App />
-    </Provider>
-  </FirebaseContext.Provider>,
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <App />
+      </ReactReduxFirebaseProvider>
+    </Provider>,
   document.getElementById('root')
 );

@@ -1,5 +1,6 @@
 import React from 'react';
-
+import {connect} from 'react-redux';
+import * as sessionActions from '../reducers/sessionActions';
 import SignUp from '../components/SignUp';
 
 class Register extends React.Component {
@@ -19,7 +20,7 @@ class Register extends React.Component {
   }
   submit = (e) => {
     e.preventDefault()
-    console.log(this.state)
+    this.props.register(this.state.email,this.state.password)
   }
   render(){
     return(
@@ -32,4 +33,6 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+const mapToProps = ({sessionReducer}) => {return sessionReducer}
+
+export default connect(mapToProps,sessionActions)(Register);

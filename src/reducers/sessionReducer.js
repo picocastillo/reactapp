@@ -6,7 +6,8 @@ const INITIAL_STATE = {
   loading: false,
   error: '',
   logged: false,
-  token: ''
+  token: '',
+  message: ''
 };
 
 
@@ -18,7 +19,8 @@ export default (state=INITIAL_STATE, action) => {
         token: action.payload.token,
         logged: true,
         loading: false,
-        error: ''
+        error: '',
+        message: "Se ha autenticado con éxito"
       }
     case LOADING:
       return {...state, loading: true}
