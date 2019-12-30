@@ -63,14 +63,10 @@ class Post extends React.Component {
    click = async (e) => {
     const id = e.target.dataset.id;
     const idx = e.target.dataset.idx;
-    // console.log(this.props)
     const post_key = this.props.match.params.key;
     this.props.toOpen(id,idx,post_key)
     await this.props.getComments(id,idx,post_key)
-    console.log(id,idx)
     const pkey = this.props.userReducer.users[post_key].post_key
-    console.log(this.props.postReducer.posts[pkey][idx].comments)
-    console.log(this.props.postReducer.posts[pkey][idx])
     this.setState({
       comments: this.props.postReducer.posts[pkey][idx].comments
     });

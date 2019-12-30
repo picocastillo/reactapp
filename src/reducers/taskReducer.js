@@ -1,10 +1,11 @@
-import {GET_ALL, LOADING, ERROR} from '../types/taskTypes';
+import {GET_ALL, LOADING, ERROR, ADD_NEW} from '../types/taskTypes';
 
 
 const INITIAL_STATE = {
   tasks: {},
   loading: false,
-  error: ''
+  error: '',
+  redirect: false
 };
 
 
@@ -14,12 +15,22 @@ export default (state=INITIAL_STATE, action) => {
       return {...state,
         tasks: action.payload,
         loading: false,
-        error: ''
+        error: '',
+        title: '',
+        user_id: '',
+        redirect: false
       }
     case LOADING:
       return {...state, loading: true}
     case ERROR:
       return {...state, error: action.payload, loading: false}
+    case ADD_NEW:
+      return {
+        ...state,
+        loading: false,
+        error: '',
+        redirect: true
+      }
     default: return state
   }
 }
