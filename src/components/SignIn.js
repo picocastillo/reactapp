@@ -10,9 +10,10 @@ function Signin(props) {
   const firebase = useFirebase()
   const auth = useSelector(state => state.firebase.auth)
 
-  function loginWithGoogle(e) {
+  const loginWithGoogle = async (e) => {
     e.preventDefault()
-    return firebase.login({ provider: 'google', type: 'popup' })
+    const res = await firebase.login({ provider: 'google', type: 'popup' })
+    //MISSIN DIPATCH result.user.photoURL por example..
   }
   return(
     <div className="card">

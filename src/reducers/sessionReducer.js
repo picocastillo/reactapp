@@ -1,4 +1,4 @@
-import {LOGIN, LOADING, ERROR} from '../types/sessionTypes';
+import {LOGIN, LOADING, ERROR, LOGOUT} from '../types/sessionTypes';
 
 
 const INITIAL_STATE = {
@@ -21,6 +21,15 @@ export default (state=INITIAL_STATE, action) => {
         loading: false,
         error: '',
         message: "Se ha autenticado con éxito"
+      }
+    case LOGOUT:
+      return {...state,
+        username: "",
+        token: "",
+        logged: false,
+        loading: false,
+        error: '',
+        message: ""
       }
     case LOADING:
       return {...state, loading: true}

@@ -41,6 +41,10 @@ function App(props) {
       </Router>
     )
   }else {
+    const LogOut = () => {
+      props.signOut()
+      return <Login />
+    }
     return (
       <Router>
         <Layout>
@@ -48,6 +52,7 @@ function App(props) {
             <Route exact path="/home" component={Home} />
             <Route exact path="/all" component={All}/>
             <Route exact path="/users" component={User}/>
+            <Route exact path="/logout" component={LogOut}/>
             <Route exact path="/tasks" component={Task}/>
             <Route exact path="/tasks/new" component={NewTask}/>
             <Route exact path="/tasks/new/:title/:userId" component={NewTask}/>

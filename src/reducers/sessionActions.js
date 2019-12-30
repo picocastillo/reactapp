@@ -1,5 +1,5 @@
 // import axios from 'axios';
-import {LOGIN, LOADING, ERROR} from '../types/sessionTypes';
+import {LOGIN, LOADING, ERROR,LOGOUT} from '../types/sessionTypes';
 import firebase from 'firebase/app'
 require('firebase/auth')
 
@@ -18,6 +18,26 @@ export const login = (email,password) => async (dispatch) => {
         username: 'asd',
         token: 'asd'
       }
+    })
+
+  } catch (e) {
+    console.log("ERROR ",e.message)
+    dispatch({
+      type: ERROR,
+      payload: e.message
+    })
+  }
+}
+
+export const signOut = () => async (dispatch) => {
+  dispatch({
+    type: LOADING
+  })
+  try {
+    firebase.auth().signOut();
+
+    dispatch({
+      type: LOGOUT,
     })
 
   } catch (e) {
