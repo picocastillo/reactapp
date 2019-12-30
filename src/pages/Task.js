@@ -36,13 +36,11 @@ class Task extends React.Component {
       ...tasks[user_id]
     }
 
-    return Object.keys(by_user).map( (task_id) => (
-      <div>
-        <input type='checkbox' defaultChecked={by_user[task_id].completed} readonly/>
-        {
-          by_user[task_id].title
-        }
-
+    return Object.keys(by_user).map( (task_id, key) => (
+      <div key={key}>
+        <li>
+          {(by_user[task_id].completed) ? <s>{by_user[task_id].title}</s> : by_user[task_id].title }
+        </li>
       </div>
     ))
   }
