@@ -14,6 +14,7 @@ import Home from './pages/Home';
 import All from './pages/All';
 import User from './pages/User';
 import Task from './pages/Task';
+import Login from './pages/Login';
 import Layout from './Layout';
 import Publications from './pages/Post';
 import NewTask from './containers/NewTask';
@@ -24,6 +25,13 @@ const NotFound = () =>{
 }
 
 function App() {
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/login" component={Login} />
+      </Switch>
+    </Router>
+  )
   return (
       <Router>
         <Layout>
