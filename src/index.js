@@ -2,6 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import $ from 'jquery';
 // import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import Firebase, { FirebaseContext } from './firebase/firebaseApp';
+
 
 
 import React from 'react';
@@ -21,8 +23,10 @@ const store = createStore(
 )
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <FirebaseContext.Provider value={new Firebase()}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </FirebaseContext.Provider>,
   document.getElementById('root')
 );
